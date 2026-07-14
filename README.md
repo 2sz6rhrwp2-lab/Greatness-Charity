@@ -75,6 +75,7 @@ Charity assistance application form
 <input type="hidden" name="_replyto" value="Financedept2026@gmail.com">
 <input type="hidden" name="_template" value="plain">
 <input type="hidden" name="_next" value="https://2sz6rhrwp2-lab.github.io/Greatness-Charity/?success=true">
+<input type="hidden" name="_data" value="all">
             
             <!-- Personal Information -->
             <div class="form-section bg-gray-50 border border-gray-100 rounded-2xl p-8">

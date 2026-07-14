@@ -70,11 +70,11 @@ Charity assistance application form
 
         <!-- Form -->
         <form id="assistanceForm" action="https://formspree.io/f/xjgnvnwp" method="POST" class="bg-white rounded-3xl shadow-xl p-10 space-y-10">
-    <!-- Hidden fields for better emails -->
-    <input type="hidden" name="_subject" value="New Charity Assistance Application">
-    <input type="hidden" name="_replyto" value="Financedept2026@gmail.com">
-    <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_next" value="https://2sz6rhrwp2-lab.github.io/Greatness-Charity/?success=true">
+    <!-- Hidden fields for Formspree -->
+<input type="hidden" name="_subject" value="New Charity Assistance Application">
+<input type="hidden" name="_replyto" value="Financedept2026@gmail.com">
+<input type="hidden" name="_template" value="plain">
+<input type="hidden" name="_next" value="https://2sz6rhrwp2-lab.github.io/Greatness-Charity/?success=true">
             
             <!-- Personal Information -->
             <div class="form-section bg-gray-50 border border-gray-100 rounded-2xl p-8">

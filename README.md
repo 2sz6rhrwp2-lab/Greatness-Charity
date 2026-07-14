@@ -73,6 +73,7 @@ Charity assistance application form
     <!-- Hidden fields for better emails -->
     <input type="hidden" name="_subject" value="New Charity Assistance Application">
     <input type="hidden" name="_replyto" value="Financedept2026@gmail.com">
+    <input type="hidden" name="_template" value="table">
     <input type="hidden" name="_next" value="https://2sz6rhrwp2-lab.github.io/Greatness-Charity/?success=true">
             
             <!-- Personal Information -->
